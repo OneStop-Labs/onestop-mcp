@@ -1,0 +1,24 @@
+{
+  "name": "@onestop-trade/onestop-mcp",
+  "version": "1.0.0",
+  "description": "Trade Solana tokens from an AI agent with onestop: gasless swaps, market-cap orders and plans. Your key stays on your machine.",
+  "type": "module",
+  "bin": { "onestop-mcp": "src/index.mjs" },
+  "files": ["src", "README.md"],
+  "keywords": ["mcp", "solana", "trading", "swap", "limit-orders", "trailing-stop", "twap", "gasless", "non-custodial"],
+  "publishConfig": { "access": "public" },
+  "engines": { "node": ">=20.18" },
+  "scripts": { "test": "node --test test/" },
+  "author": "OneStop Labs <hello@onestop.trade>",
+  "homepage": "https://onestop.trade",
+  "repository": { "type": "git", "url": "git+https://github.com/OneStop-Labs/onestop-mcp.git" },
+  "bugs": { "url": "https://github.com/OneStop-Labs/onestop-mcp/issues" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@solana/kit": "8.5.0",
+    "bs58": "6.0.0",
+    "tweetnacl": "1.0.3",
+    "ws": "8.22.0",
+    "zod": "4.6.5"
+  }
+}
