@@ -1,6 +1,7 @@
 {
   "name": "@onestop-trade/onestop-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "mcpName": "trade.onestop/onestop-mcp",
   "description": "Trade Solana tokens from an AI agent with onestop: gasless swaps, market-cap orders and plans. Your key stays on your machine.",
   "type": "module",
   "bin": { "onestop-mcp": "src/index.mjs" },

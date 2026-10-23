@@ -20,7 +20,7 @@ try {
   failure = e;  // reported by every tool call
 }
 
-const server = new McpServer({ name: 'onestop', version: '1.0.0' }, {
+const server = new McpServer({ name: 'onestop', version: '1.0.1' }, {
   instructions: 'Trade Solana tokens through onestop: gasless swaps (no SOL needed; a 1% fee plus the network cost, both '
     + 'taken from the trade), market-cap orders and plans that buy and then protect a position. Amounts are raw units '
     + '(lamports for SOL); levels are basis points. Call wallet first. ' + SIGNING,

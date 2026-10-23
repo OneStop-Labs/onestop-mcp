@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "trade.onestop/onestop-mcp",
+  "title": "onestop",
+  "description": "Gasless Solana swaps, market-cap limit, trailing and TWAP orders, and plans. Your key stays local.",
+  "websiteUrl": "https://onestop.trade",
+  "repository": { "url": "https://github.com/OneStop-Labs/onestop-mcp", "source": "github" },
+  "version": "1.0.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@onestop-trade/onestop-mcp",
+      "version": "1.0.1",
+      "runtimeHint": "npx",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "ONESTOP_PRIVATE_KEY",
+          "description": "The private key of the wallet that trades, as your wallet exports it. Use a wallet you keep for trading",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "ONESTOP_KEYPAIR_PATH",
+          "description": "Or the path to a keypair file, instead of the private key",
+          "format": "filepath"
+        },
+        {
+          "name": "SOLANA_RPC_URL",
+          "description": "Your RPC, used to simulate every transaction before signing (default: public mainnet)"
+        },
+        {
+          "name": "ONESTOP_DRY_RUN",
+          "description": "true to trade nothing: order tools answer without calling onestop and swaps stop after the guard",
+          "format": "boolean"
+        }
+      ]
+    }
+  ]
+}
