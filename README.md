@@ -18,7 +18,7 @@ Node 20.18 or later.
 | `ONESTOP_DRY_RUN=1` | trade nothing: order and plan tools answer without calling onestop, and swaps stop after the guard. Paper orders still run |
 | `ONESTOP_SKIP_SPEND_CHECK=1` | turn off the guard's balance checks (the structural checks stay). For debugging only |
 | `ONESTOP_STATE` | where the MCP keeps the orders and plans it placed (default `~/.onestop-mcp/<wallet>.json`) |
-| `ONESTOP_API_URL`, `ONESTOP_SERVER_PUBKEY` (+ `_NEXT`), `ONESTOP_GAS_WALLET` | for a self-hosted engine: its URL, its signing key, its fee payer |
+| `ONESTOP_API_URL`, `ONESTOP_SERVER_PUBKEY` (+ `_NEXT`) | for a self-hosted engine: its URL, its signing key |
 
 ## Tools
 

@@ -47,7 +47,7 @@ function env(dir, extra = {}) {
   const key = path.join(dir, 'wallet.json');
   fs.writeFileSync(key, JSON.stringify(session.wallet_key));
   return { ONESTOP_KEYPAIR_PATH: key, ONESTOP_SERVER_PUBKEY: session.engine_key, ONESTOP_API_URL: session.url,
-    ONESTOP_GAS_WALLET: session.gas_wallet, SOLANA_RPC_URL: `${session.url}/rpc`, ONESTOP_STATE: path.join(dir, 'state.json'), ...extra };
+    SOLANA_RPC_URL: `${session.url}/rpc`, ONESTOP_STATE: path.join(dir, 'state.json'), ...extra };
 }
 
 const make = async (dir, extra) => new Onestop(await configFromEnv(env(dir, extra)));

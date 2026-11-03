@@ -23,7 +23,6 @@ import {
 } from './core.mjs';
 
 export const ALIASES = { SOL: WSOL, USDC: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', USDT: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB' };
-export const GAS_WALLET = '';  // onestop's fee payer
 // The trust anchor: onestop's engine signing key, built in and never fetched.
 export const SERVER_PUBKEY = 'A4TyC2862KZWtEXZxe9WDtA9wf45edryTHXH32ozinfx';
 export const API_URL = 'https://api.onestop.trade';
@@ -88,7 +87,6 @@ export async function configFromEnv(env = process.env) {
   if (!apiUrl) throw new OnestopError('no_api_url', "this build has no onestop API URL; set ONESTOP_API_URL");
   return {
     keyPair, wallet, serverKeys, apiUrl,
-    gasWallet: (env.ONESTOP_GAS_WALLET || GAS_WALLET).trim(),
     rpcUrl: (env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com').trim(),
     dryRun: flag(env.ONESTOP_DRY_RUN),
     skipSpendCheck: flag(env.ONESTOP_SKIP_SPEND_CHECK),
@@ -191,6 +189,7 @@ export class Onestop {
             return socket.send(JSON.stringify({ action: 'login', wallet: this.wallet, signature: bs58.encode(signature) }));
           }
           if (msg.type !== 'logged_in') return fail('login_failed', JSON.stringify(msg.body));
+          this.gasWallet = msg.body.gas_wallet;  // onestop's fee payer, signed by the engine's key above
           this.socket = socket;
           this.connected = true;
           onLogin();
@@ -283,8 +282,9 @@ export class Onestop {
   }
 
   async guardSignSubmit(quote, orderId = null) {
+    if (!this.gasWallet && !(await this.connect())) throw new OnestopError('engine_unreachable', "can't reach the onestop engine");
     const tx = quote.transaction.base64;
-    let reasons = guard(tx, quote, await this.simulate(tx), this.wallet, this.cfg.gasWallet);
+    let reasons = guard(tx, quote, await this.simulate(tx), this.wallet, this.gasWallet);
     if (this.cfg.skipSpendCheck) reasons = reasons.filter((r) => !SPEND_CHECKS.includes(r));
     if (reasons.length) return { status: 'refused', reasons };
     if (this.cfg.dryRun) return { status: 'dry_run', message: 'the guard passed; ONESTOP_DRY_RUN stopped it before sending' };
