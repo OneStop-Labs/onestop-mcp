@@ -1,7 +1,7 @@
 # onestop MCP
 
-Lets an AI agent trade Solana tokens through onestop: gasless swaps (no SOL needed; a 1% fee plus the
-network cost, both taken from the trade), market-cap orders (limit, trailing, limit then trail, TWAP) and
+Lets an AI agent trade Solana tokens through onestop: gasless swaps (no SOL needed; the network cost
+and any fee are taken from the trade), market-cap orders (limit, trailing, limit then trail, TWAP) and
 plans that buy and then protect the position. Your wallet's key stays on your machine.
 
 ```json

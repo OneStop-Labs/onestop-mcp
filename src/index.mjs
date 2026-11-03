@@ -20,8 +20,8 @@ try {
   failure = e;  // reported by every tool call
 }
 
-const server = new McpServer({ name: 'onestop', version: '1.0.1' }, {
-  instructions: 'Trade Solana tokens through onestop: gasless swaps (no SOL needed; a 1% fee plus the network cost, both '
+const server = new McpServer({ name: 'onestop', version: '1.0.2' }, {
+  instructions: 'Trade Solana tokens through onestop: gasless swaps (no SOL needed; the network cost and any fee are '
     + 'taken from the trade), market-cap orders and plans that buy and then protect a position. Amounts are raw units '
     + '(lamports for SOL); levels are basis points. Call wallet first. ' + SIGNING,
 });
@@ -90,7 +90,7 @@ tool('connect', 'Wait up to 20 seconds for the engine login, then report the sam
 
 // ---------------------------------------------------------------- swaps and data
 
-tool('quote', 'Price a swap without trading. Returns amount_in, expected_out, min_out, the fee (1%) and the gas (both taken '
+tool('quote', 'Price a swap without trading. Returns amount_in, expected_out, min_out, the fee and the gas (both taken '
   + 'from the trade), and transaction.base64: the unsigned transaction, good for about 45 seconds. Nothing is signed or '
   + 'sent. Pass the transaction to submit_swap to trade it after looking at the quote, or use swap to do both at once.',
   trade, (a) => client.quote(a));
@@ -102,7 +102,7 @@ tool('submit_swap', 'Trade a transaction from quote. The MCP checks it with the 
   + "the signature and the wallet's balance changes, or refused with the guard's reasons. With dry run it stops after "
   + 'the guard.', { transaction: z.string().describe('transaction.base64 from a quote') }, (a) => client.submitSwap(a.transaction));
 tool('swap', 'Swap now in one call: quote, guard, sign and send, the same as quote followed by submit_swap. No SOL needed '
-  + 'for gas: onestop pays it and takes it, with the 1% fee, from the trade. Returns the amounts and the result: '
+  + 'for gas: onestop pays it and takes it, with any fee, from the trade. Returns the amounts and the result: '
   + "confirmed with the signature and balance changes, refused with the guard's reasons, or dry_run.", trade, async (a) => {
   const q = await client.quote(a);
   return { quote: { amount_in: q.amount_in, expected_out: q.expected_out, min_out: q.min_out, fee: q.fee, gas: q.gas },

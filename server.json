@@ -5,13 +5,13 @@
   "description": "Gasless Solana swaps, market-cap limit, trailing and TWAP orders, and plans. Your key stays local.",
   "websiteUrl": "https://onestop.trade",
   "repository": { "url": "https://github.com/OneStop-Labs/onestop-mcp", "source": "github" },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@onestop-trade/onestop-mcp",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "runtimeHint": "npx",
       "transport": { "type": "stdio" },
       "environmentVariables": [
